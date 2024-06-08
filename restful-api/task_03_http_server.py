@@ -9,7 +9,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(b"Hello, this is a simple API!")
-        
+
         # Route to serve JSON data
         elif self.path == '/data':
             self.send_response(200)
@@ -21,7 +21,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
                 "city": "New York"
             }
             self.wfile.write(json.dumps(data).encode('utf-8'))
-        
+
         # Route to serve API status
         elif self.path == '/status':
             self.send_response(200)
@@ -31,7 +31,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
                 "status": "OK"
             }
             self.wfile.write(json.dumps(status).encode('utf-8'))
-        
+
         # Route to serve API info
         elif self.path == '/info':
             self.send_response(200)
@@ -42,14 +42,15 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
                 "description": "A simple API built with http.server"
             }
             self.wfile.write(json.dumps(info).encode('utf-8'))
-        
+
         # Handle undefined endpoints
         else:
             self.send_response(404)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             error_message = {
-                "error": "Endpoint not found"
+                "error": "Not Found",
+                "message": f"The endpoint '{self.path}' is not available."
             }
             self.wfile.write(json.dumps(error_message).encode('utf-8'))
 
